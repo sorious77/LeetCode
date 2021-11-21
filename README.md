@@ -4,3 +4,4 @@
 - 언어는 Java를 사용합니다.
 
 - blog : https://sorious77.tistory.com
+- mail : sorious77@naver.com
