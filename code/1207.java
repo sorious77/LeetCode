@@ -18,7 +18,7 @@ class Solution {
                 return false;
             }
             else {
-                isExist[count] = true;g
+                isExist[count] = true;
             }
         }
 
