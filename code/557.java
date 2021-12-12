@@ -1,20 +1,19 @@
+import java.util.StringTokenizer;
+
 class Solution {
     public String reverseWords(String s) {
-        String temp = "";
-        String answer = "";
+        StringTokenizer st = new StringTokenizer(s);
+        StringBuilder sb = new StringBuilder();
+        StringBuilder reverse = new StringBuilder();
         
-        for(int i=0;i<s.length();i++){
-            if(s.charAt(i) == ' '){
-                answer += temp + " ";
-                temp = "";
-            }
-            else{
-                temp = s.charAt(i) + temp;
-            }
+        while(st.hasMoreTokens()) {
+            reverse = new StringBuilder(st.nextToken());
+            
+            sb.append(reverse.reverse().toString()).append(" ");
         }
         
-        answer += temp;
+        String answer = sb.toString();
         
-        return answer;
+        return answer.substring(0, answer.length() - 1);
     }
 }
