@@ -1,46 +1,33 @@
-public class node{
-    int level;
-    TreeNode tree;
-    
-    node() {}
-    node(TreeNode tree, int level){
-        this.level = level;
-        this.tree = tree;
-    }
-}
-
 class Solution {
-    public List<Double> averageOfLevels(TreeNode root) {
-        List<Double> answer = new ArrayList();
-        List<List<Integer>> sum = new ArrayList();
-        
-        Queue<node> q = new LinkedList<node>();
-        
-        q.offer(new node(root, 0));
-        while(!q.isEmpty()){
-            node temp = q.poll();
-            
-            if(sum.size() < temp.level){
-                sum.add(new ArrayList());
-            }
-            
-            sum.get(temp.level).add(temp.tree.val);
-            
-            if(temp.tree.left != null)
-                q.offer(new node(temp.tree.left, temp.level + 1));
-            
-            if(temp.tree.right != null)
-                q.offer(new node(temp.tree.right, temp.level + 1));
+    void traversal(List<List<Integer>> info, TreeNode root, int level) {
+        if(root == null) {
+            return;
         }
         
-        for(int i=0;i<sum.size();i++){
-            int tempSum = 0;
+        if(info.size() < level) {
+            info.add(new ArrayList<>());
+        }
+        
+        info.get(level - 1).add(root.val);
+        
+        traversal(info, root.left, level + 1);
+        traversal(info, root.right, level + 1);
+    }
+    
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<List<Integer>> info = new ArrayList<>();
+        List<Double> answer = new ArrayList<>();
+        
+        traversal(info, root, 1);
+        
+        for(List<Integer> level : info) {
+            long sum = 0;
             
-            for(int j=0;j<sum.get(i).size();j++){
-                tempSum += sum.get(i).get(j);
+            for(int val : level) {
+                sum += val;
             }
             
-            answer.add((double)tempSum / sum.get(i).size());
+            answer.add((double)((double)sum / level.size()));
         }
         
         return answer;
