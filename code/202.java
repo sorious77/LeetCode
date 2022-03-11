@@ -2,23 +2,22 @@ class Solution {
     Set<Integer> set = new HashSet<>();
     
     public boolean isHappy(int n) {
-        int sum = 0;
+        if(n == 1) {
+            return true;
+        }
         
-        while(n != 0) {
-            sum += (n % 10) * (n % 10);
-            
+        if(set.contains(n)) {
+            return false;
+        }
+        
+        set.add(n);
+        
+        int num = 0;
+        while(n > 0) {
+            num += (n % 10) * (n % 10);
             n /= 10;
         }
         
-        if(set.contains(sum)) {
-            return sum == 1;
-        }
-        
-        set.add(sum);
-        
-        if(sum == 1)
-            return true;
-        
-        return isHappy(sum);
+        return isHappy(num);
     }
 }
