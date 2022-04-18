@@ -1,23 +1,31 @@
 class Solution {
     public boolean checkRecord(String s) {
-        int countA = 0;
-        int countL = 0;
+        boolean isLate = false;
+        int consecutiveLate = 0;
+        int countAbsent = 0;
         
-        for(int i=0;i<s.length();i++){
-            char cur = s.charAt(i);
-            
-            if(cur == 'L'){
-                countL++;
-            }
-            else{
-                countL = 0;
+        for(char c : s.toCharArray()) {
+            if(c == 'A') {
+                countAbsent += 1;
+                isLate = false;
                 
-                if(cur == 'A')
-                    countA++;
+                if(countAbsent >= 2) {
+                    return false;
+                }
+            } else if(c == 'L') {
+                if(isLate) {
+                    consecutiveLate += 1;
+                    
+                    if(consecutiveLate >= 3) {
+                        return false;
+                    }
+                } else {
+                    isLate = true;
+                    consecutiveLate = 1;
+                }
+            } else {
+                isLate = false;
             }
-            
-            if(countA >= 2 || countL >= 3)
-                return false;
         }
         
         return true;
